@@ -1,0 +1,18 @@
+package com.tmdb.app.common.initializer
+
+import android.content.Context
+import androidx.startup.Initializer
+import com.tmdb.app.BuildConfig
+import timber.log.Timber
+
+class TimberInitializer : Initializer<Unit> {
+    override fun create(context: Context): Unit {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
+
+    override fun dependencies(): List<Class<out Initializer<*>>> {
+        return emptyList()
+    }
+}
