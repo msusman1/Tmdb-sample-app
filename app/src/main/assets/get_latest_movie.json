@@ -1,0 +1,67 @@
+{
+  "adult": false,
+  "backdrop_path": null,
+  "created_by": [],
+  "episode_run_time": [],
+  "first_air_date": "2010-02-08",
+  "genres": [],
+  "homepage": "",
+  "id": 215264,
+  "in_production": false,
+  "languages": [
+    "zh"
+  ],
+  "last_air_date": "2010-02-08",
+  "last_episode_to_air": {
+    "air_date": "2010-02-08",
+    "episode_number": 1,
+    "id": 4078216,
+    "name": "第五名战士",
+    "overview": "The four members of the beast team are looking for the fifth member at the request of Dr. Hu. The Divine Beast Team rescued Lin Cong, a mathematics genius who was attacked by a mechanical monster. He was told that he was the fifth member of the Divine Beast Team. The five team members summoned the divine beast King Kong, united to defeat the mechanical monster, and a new force against evil was born!",
+    "production_code": "",
+    "runtime": 15,
+    "season_number": 1,
+    "show_id": 215264,
+    "still_path": null,
+    "vote_average": 0.0,
+    "vote_count": 0
+  },
+  "name": "神兽金刚",
+  "next_episode_to_air": null,
+  "networks": [],
+  "number_of_episodes": 1,
+  "number_of_seasons": 1,
+  "origin_country": [
+    "CN"
+  ],
+  "original_language": "zh",
+  "original_name": "神兽金刚",
+  "overview": "Many years ago, the ambitious Dark Emperor who wanted to rule the universe endangered the environment and destroyed peace. In order to stop him, the leader of the universe, Big Dipper King, finally sealed the Dark Emperor under the polar ice rocks of the earth after a fierce cosmic war. , to isolate him from the world. In order to prevent the Dark Emperor from cracking the seal, after the Dark Emperor was frozen, the Big Dipper King discovered six mythical beasts on Earth under the guidance of the earth's eminent monks. The guardian elves stay on Earth. The six divine beasts are Kylin King Kong, Azure Dragon King Kong, White Tiger King Kong, Basalt King Kong, Suzaku King Kong and Eagle Dragon King Kong. Only six children with super powers can control these six divine beasts.",
+  "popularity": 0.0,
+  "poster_path": null,
+  "production_companies": [],
+  "production_countries": [],
+  "seasons": [
+    {
+      "air_date": "2010-02-08",
+      "episode_count": 1,
+      "id": 317884,
+      "name": "Season 1",
+      "overview": "Many years ago, the ambitious Dark Emperor who wanted to rule the universe endangered the environment and destroyed peace. In order to stop him, the leader of the universe, Big Dipper King, finally sealed the Dark Emperor under the polar ice rocks of the earth after a fierce cosmic war. , to isolate him from the world. In order to prevent the Dark Emperor from cracking the seal, after the Dark Emperor was frozen, the Big Dipper King discovered six mythical beasts on Earth under the guidance of the earth's eminent monks. The guardian elves stay on Earth. The six divine beasts are Kylin King Kong, Azure Dragon King Kong, White Tiger King Kong, Basalt King Kong, Suzaku King Kong and Eagle Dragon King Kong. Only six children with super powers can control these six divine beasts.",
+      "poster_path": null,
+      "season_number": 1
+    }
+  ],
+  "spoken_languages": [
+    {
+      "english_name": "Mandarin",
+      "iso_639_1": "zh",
+      "name": "普通话"
+    }
+  ],
+  "status": "Ended",
+  "tagline": "",
+  "type": "Scripted",
+  "vote_average": 0.0,
+  "vote_count": 0
+}

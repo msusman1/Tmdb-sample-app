@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tmdb.app.domain.entity.People
 import com.tmdb.app.domain.usecase.people.GetPersonDetailUseCase
+import com.tmdb.app.ui.Screen.PeopleDetail.parsePeopleDetailArguments
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,7 @@ class PeopleDetailViewModel @Inject constructor(
 ) : ViewModel() {
     val uiState: Flow<UIState> get() = _uiState
     private val _uiState = MutableStateFlow<UIState>(UIState.Loading)
-    private val personId: Int = checkNotNull(savedStateHandle["peopleId"])
+    private val personId: Int = savedStateHandle.parsePeopleDetailArguments().peopleId
 
     init {
         getPersonDetail()

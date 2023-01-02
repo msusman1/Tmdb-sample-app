@@ -24,6 +24,7 @@ import com.tmdb.app.domain.entity.People
 import com.tmdb.app.ui.components.*
 import com.tmdb.app.ui.home.*
 import com.tmdb.app.ui.navigateToMediaDetail
+import com.tmdb.app.ui.openUrl
 
 
 @Composable
@@ -154,12 +155,6 @@ fun PeopleDetailScreen(
     navController: NavController,
     peopleDetailViewModel: PeopleDetailViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
-    fun openUrl(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        context.startActivity(intent)
-    }
 
     val uiState =
         peopleDetailViewModel.uiState.collectAsState(initial = PeopleDetailViewModel.UIState.Loading).value
@@ -169,7 +164,7 @@ fun PeopleDetailScreen(
             people = uiState.people,
             onClose = navController::navigateUp,
             onMovieClick = navController::navigateToMediaDetail,
-            onOpenUrl = ::openUrl
+            onOpenUrl = navController::openUrl
 
         )
         is PeopleDetailViewModel.UIState.Error -> FullScreenErrorLayout(

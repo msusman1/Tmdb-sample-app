@@ -5,26 +5,15 @@ import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.tmdb.app.ui.Screen
+import com.tmdb.app.ui.seasonDetail.SeasonDetailScreen
 import com.tmdb.app.ui.home.HomeScreen
+import com.tmdb.app.ui.home.MovieListScreen
+import com.tmdb.app.ui.home.PeopleListScreen
+import com.tmdb.app.ui.home.TvListScreen
 import com.tmdb.app.ui.movieDetail.MovieDetailScreen
-import com.tmdb.app.ui.navigateToHomeMovies
-import com.tmdb.app.ui.onboarding.OnboardingScreen
 import com.tmdb.app.ui.peopleDetail.PeopleDetailScreen
-
-sealed class Screen(open val route: String) {
-    object Onboarding : Screen("Onboarding")
-    sealed class Home(route: String) : Screen(route) {
-        object MovieList : Home("MovieList")
-        object TVList : Home("TVList")
-        object PeopleList : Home("PeopleList")
-    }
-
-    object Search : Screen("Search")
-    object Player : Screen("Player")
-    object MovieDetail : Screen("MovieDetail/{movieId}")
-    object TVDetail : Screen("TVDetail/{tvId}")
-    object PeopleDetail : Screen("PeopleDetail/{peopleId}")
-}
+import com.tmdb.app.ui.tvDetail.TvDetailScreen
 
 
 @Composable
@@ -34,36 +23,63 @@ fun TmdbNavGraph(
 ) {
 
     NavHost(navController = navController, startDestination = startDestination.route) {
-        onBoardingScreen(onSkipClicked = navController::navigateToHomeMovies)
         homeScreen(navController = navController)
         peopleDetailScreen(navController = navController)
         movieDetailScreen(navController = navController)
+        tvDetailScreen(navController = navController)
+        seasonDetailScreen(navController = navController)
     }
 }
 
-fun NavGraphBuilder.peopleDetailScreen(navController:NavController) {
+fun NavGraphBuilder.peopleDetailScreen(navController: NavController) {
     composable(
         route = Screen.PeopleDetail.route,
-        arguments = listOf(navArgument("peopleId") { this.type = NavType.IntType })
+        arguments = Screen.PeopleDetail.buildArguments()
     ) {
         PeopleDetailScreen(navController)
     }
 }
-fun NavGraphBuilder.movieDetailScreen(navController:NavController) {
+
+fun NavGraphBuilder.movieDetailScreen(navController: NavController) {
     composable(
         route = Screen.MovieDetail.route,
-        arguments = listOf(navArgument("movieId") { this.type = NavType.IntType })
+        arguments = Screen.MovieDetail.buildArguments()
     ) {
         MovieDetailScreen(navController)
     }
 }
-fun NavGraphBuilder.homeScreen(navController:NavController) {
-    composable(route = Screen.Home.MovieList.route) {
-        HomeScreen(navController)
+
+fun NavGraphBuilder.tvDetailScreen(navController: NavController) {
+    composable(
+        route = Screen.TVDetail.route,
+        arguments = Screen.TVDetail.buildArguments()
+    ) {
+        TvDetailScreen(navController)
     }
 }
-fun NavGraphBuilder.onBoardingScreen(onSkipClicked: () -> Unit) {
-    composable(route = Screen.Onboarding.route) {
-        OnboardingScreen(onSkipClicked = onSkipClicked, onGettingStartedClick = onSkipClicked)
+
+fun NavGraphBuilder.seasonDetailScreen(navController: NavController) {
+    composable(
+        route = Screen.SeasonDetail.route,
+        arguments = Screen.SeasonDetail.buildArguments()
+    ) {
+        SeasonDetailScreen(navController)
+    }
+}
+
+fun NavGraphBuilder.homeScreen(navController: NavController) {
+    composable(route = Screen.Home.MovieList.route) {
+        HomeScreen(startDestination = Screen.Home.TVList.route) {
+            composable(Screen.Home.MovieList.route) {
+                MovieListScreen(navController = navController)
+            }
+            composable(Screen.Home.TVList.route) {
+                TvListScreen(navController = navController)
+            }
+            composable(Screen.Home.PeopleList.route) {
+                PeopleListScreen(navController = navController)
+            }
+        }
+
     }
 }

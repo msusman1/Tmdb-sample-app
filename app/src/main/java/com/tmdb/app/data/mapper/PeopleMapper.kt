@@ -1,25 +1,28 @@
 package com.tmdb.app.data.mapper
 
+import com.tmdb.app.data.UrlProvider
 import com.tmdb.app.data.response.*
 import com.tmdb.app.domain.entity.*
 import javax.inject.Inject
 
 class PeopleMapper @Inject constructor(
-    val movieMapper: MovieMapper
+    val movieMapper: MovieMapper,
+    private val urlProvider: UrlProvider
+
 ) {
 
 
     fun ApiKnownFor.mapToDomain(): PeopleKnownFor {
         return PeopleKnownFor(
             adult = this.adult ?: false,
-            backdropPath = this.backdropPath ?: "",
-            genreIds = this.genreIds ?: emptyList(),
+            backdropPath = urlProvider.getBackdropFullUrl(this.backdropPath),
+            genreIds = this.genreIds,
             id = this.id ?: -1,
             mediaType = this.mediaType ?: "",
             originalLanguage = this.originalLanguage ?: "",
             originalTitle = this.originalTitle ?: "",
             overview = this.overview ?: "",
-            posterPath = this.posterPath ?: "",
+            posterPath = urlProvider.getBackdropFullUrl(this.posterPath),
             releaseDate = this.releaseDate ?: "",
             title = this.title ?: "",
             video = this.video ?: false,
@@ -38,13 +41,13 @@ class PeopleMapper @Inject constructor(
             knownForDepartment = apiPeople.knownForDepartment ?: "",
             alsoKnownAs = apiPeople.alsoKnownAs ?: emptyList(),
             popularity = apiPeople.popularity ?: 0.0,
-            profileUrl = apiPeople.profilePath ?: "",
+            profileUrl = urlProvider.getPosterFullUrl(apiPeople.profilePath),
             birthday = apiPeople.birthday ?: "",
             placeOfBirth = apiPeople.placeOfBirth ?: "",
             homepage = apiPeople.homepage ?: "",
             biography = apiPeople.biography ?: "",
             deathday = apiPeople.deathDay ?: "",
-            images = apiPeople.images?.profiles?.mapNotNull { it.filePath } ?: emptyList(),
+            images = apiPeople.images?.profiles?.mapNotNull { urlProvider.getPosterFullUrl(it.filePath) }?: emptyList(),
             cast = apiPeople.combinedCredits?.cast?.map { movieMapper.mapToDomain(it) }
                 ?: emptyList(),
             crew = apiPeople.combinedCredits?.crew?.map { movieMapper.mapToDomain(it) }
@@ -54,9 +57,9 @@ class PeopleMapper @Inject constructor(
     }
 
     private fun String?.mapGender(): Gender {
-      return  when (this) {
-            "FEMALE"-> Gender.FEMALE
-            "MALE"-> Gender.MALE
+        return when (this) {
+            "FEMALE" -> Gender.FEMALE
+            "MALE" -> Gender.MALE
             else -> Gender.OTHER
         }
     }

@@ -21,15 +21,15 @@ import com.tmdb.app.ui.theme.TMDBAppTheme
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnboardingScreen(
-    onGettingStartedClick: () -> Unit,
+fun OnBoardingScreen(
     onSkipClicked: () -> Unit
 ) {
     val pagerState = rememberPagerState(initialPage = 0)
 
     Column {
         ElevatedButton(
-            onClick = { onSkipClicked() }
+            onClick = { onSkipClicked() },
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(text = "Skip")
         }
@@ -56,7 +56,7 @@ fun OnboardingScreen(
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp), onClick = onGettingStartedClick,
+                    .padding(horizontal = 8.dp), onClick = onSkipClicked,
                 colors = ButtonDefaults.outlinedButtonColors()
             ) {
                 Text(text = "Get Started")
@@ -71,7 +71,7 @@ fun OnboardingScreen(
 @Composable
 fun DefaultPreview() {
     TMDBAppTheme {
-        OnboardingScreen({}, {})
+        OnBoardingScreen {}
     }
 }
 

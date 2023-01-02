@@ -16,29 +16,32 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.tmdb.app.domain.entity.Movie
-import com.tmdb.app.ui.navigateToMediaDetail
+import com.tmdb.app.ui.navigateToMovieDetail
 import timber.log.Timber
 
 @Composable
-fun MovieListScreen(movieViewModel: MovieViewModel = hiltViewModel(),navController: NavController) {
+fun MovieListScreen(
+    navController: NavController,
+    movieViewModel: MovieViewModel = hiltViewModel()
+) {
     val trendingMovies: LazyPagingItems<Movie> =
         movieViewModel.trendingMovies.collectAsLazyPagingItems()
- /*   val nowPlayingMovies: LazyPagingItems<Movie> =
-        movieViewModel.nowPlayingMovies.collectAsLazyPagingItems()
-    val popularMovies: LazyPagingItems<Movie> =
-        movieViewModel.popularMovies.collectAsLazyPagingItems()
-    val topRatedMovies: LazyPagingItems<Movie> =
-        movieViewModel.topRatedMovies.collectAsLazyPagingItems()
-    val upcomingMovies: LazyPagingItems<Movie> =
-        movieViewModel.upcomingMovies.collectAsLazyPagingItems()
-*/
+
+       val nowPlayingMovies: LazyPagingItems<Movie> =
+           movieViewModel.nowPlayingMovies.collectAsLazyPagingItems()
+       val popularMovies: LazyPagingItems<Movie> =
+           movieViewModel.popularMovies.collectAsLazyPagingItems()
+       val topRatedMovies: LazyPagingItems<Movie> =
+           movieViewModel.topRatedMovies.collectAsLazyPagingItems()
+       val upcomingMovies: LazyPagingItems<Movie> =
+           movieViewModel.upcomingMovies.collectAsLazyPagingItems()
     fun onMoreClicked(homeMovieRow: MovieLoadType) {
         Timber.d("onMoreClicked homeMovieRow: ${homeMovieRow.name}")
     }
 
     fun onMovieClicked(movie: Movie) {
         Timber.d("onMoreClicked movie: ${movie.title}")
-        navController.navigateToMediaDetail(movie)
+        navController.navigateToMovieDetail(movie.id)
     }
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -47,7 +50,7 @@ fun MovieListScreen(movieViewModel: MovieViewModel = hiltViewModel(),navControll
         item(key = MovieLoadType.TRENDING) {
             MovieRowItems(MovieLoadType.TRENDING, trendingMovies, ::onMovieClicked, ::onMoreClicked)
         }
-        /*item(key = MovieLoadType.NOW_PLAYING) {
+        item(key = MovieLoadType.NOW_PLAYING) {
             MovieRowItems(
                 MovieLoadType.NOW_PLAYING,
                 nowPlayingMovies,
@@ -78,7 +81,7 @@ fun MovieListScreen(movieViewModel: MovieViewModel = hiltViewModel(),navControll
                 ::onMovieClicked,
                 ::onMoreClicked
             )
-        }*/
+        }
     }
 
 }

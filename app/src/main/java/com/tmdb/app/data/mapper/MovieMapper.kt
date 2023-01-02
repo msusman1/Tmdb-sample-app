@@ -1,8 +1,12 @@
 package com.tmdb.app.data.mapper
 
 import com.tmdb.app.data.UrlProvider
-import com.tmdb.app.data.response.*
-import com.tmdb.app.domain.entity.*
+import com.tmdb.app.data.response.ApiImages
+import com.tmdb.app.data.response.ApiMovie
+import com.tmdb.app.data.response.ApiVideos
+import com.tmdb.app.data.response.MediaType
+import com.tmdb.app.domain.entity.Movie
+import com.tmdb.app.domain.entity.Video
 import javax.inject.Inject
 
 class MovieMapper @Inject constructor(
@@ -27,33 +31,6 @@ class MovieMapper @Inject constructor(
 
     }
 
-    private fun ApiSpokenLanguages.mapToDomain(): SpokenLanguages {
-        return SpokenLanguages(
-            englishName = this.englishName ?: "",
-            iso6391 = this.iso6391 ?: "",
-            name = this.name ?: "",
-        )
-    }
-
-    private fun ApiProductionCompanies.mapToDomain(): ProductionCompanies {
-        return ProductionCompanies(
-            id = this.id ?: -1,
-            logoPath = this.logoPath ?: "",
-            name = this.name ?: "",
-            originCountry = this.originCountry ?: "",
-        )
-    }
-
-    private fun ApiProductionCountries.mapToDomain(): ProductionCountries {
-        return ProductionCountries(
-            iso31661 = this.iso31661 ?: "",
-            name = this.name ?: "",
-        )
-    }
-
-    private fun ApiGenres.mapToDomain(): Genres {
-        return Genres(this.id ?: -1, this.name ?: "")
-    }
 
     fun mapToDomain(apiMovie: ApiMovie): Movie {
         return Movie(
@@ -82,7 +59,7 @@ class MovieMapper @Inject constructor(
             video = apiMovie.video ?: false,
             voteAverage = apiMovie.voteAverage ?: 0.0,
             voteCount = apiMovie.voteCount ?: 0,
-            trailer = apiMovie.videos?.videos?.firstOrNull()?.site ?: "",
+            trailer = urlProvider.getYoutubeTrailer(apiMovie.videos) ?: "",
             logo = apiMovie.images?.getLogo() ?: "",
             posters = apiMovie.images?.getPosters() ?: emptyList(),
             backdrops = apiMovie.images?.getBackdrops() ?: emptyList(),

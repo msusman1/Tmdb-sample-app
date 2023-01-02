@@ -12,14 +12,19 @@ import com.tmdb.app.ui.home.*
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun CloseableToolbar(title: String, onCloseClick: () -> Unit) {
-    TopAppBar(title = { Text(text = title) }, navigationIcon = {
-        Icon(
-            imageVector = Icons.Default.Close,
-            modifier = Modifier
-                .padding(8.dp)
-                .clickable { onCloseClick() },
-            contentDescription = "Close"
-        )
-    })
+fun CloseableToolbar(
+    title: String,
+    onCloseClick: () -> Unit,
+) {
+    TopAppBar(
+        title = { Text(text = title) },
+        navigationIcon = {
+            Icon(
+                imageVector = Icons.Default.Close,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable { onCloseClick() },
+                contentDescription = "Close"
+            )
+        } )
 }

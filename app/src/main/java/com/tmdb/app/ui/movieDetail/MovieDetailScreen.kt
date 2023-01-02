@@ -2,12 +2,10 @@ package com.tmdb.app.ui.movieDetail
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
@@ -34,7 +32,8 @@ import com.tmdb.app.ui.components.*
 import com.tmdb.app.ui.home.ErrorCard
 import com.tmdb.app.ui.home.LoadingCard
 import com.tmdb.app.ui.home.MediaCard
-import com.tmdb.app.ui.navigateToMediaDetail
+import com.tmdb.app.ui.navigateToMovieDetail
+import com.tmdb.app.ui.openUrl
 import kotlinx.coroutines.flow.flow
 import java.util.*
 
@@ -42,24 +41,18 @@ import java.util.*
 fun MovieDetailScreen(
     navController: NavController, movieDetailViewModel: MovieDetailViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
-    fun openUrl(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        context.startActivity(intent)
-    }
-
     val uiState =
         movieDetailViewModel.uiState.collectAsState(initial = MovieDetailViewModel.UIState.Loading).value
     val relatedMovies: LazyPagingItems<Movie> =
         movieDetailViewModel.relatedMovies.collectAsLazyPagingItems()
     when (uiState) {
-        MovieDetailViewModel.UIState.Loading -> FullScreenProgressLayout()
+        is MovieDetailViewModel.UIState.Loading -> FullScreenProgressLayout()
         is MovieDetailViewModel.UIState.Success -> MovieDetailLayout(
             movie = uiState.movie, onClose = navController::navigateUp,
             relatedMovies = relatedMovies,
-            onMovieClick = navController::navigateToMediaDetail,
-            onOpenUrl = ::openUrl
+            onMovieClick = navController::navigateToMovieDetail,
+            onOpenUrl = navController::openUrl,
+            onPlayTrailer = navController::openUrl
         )
         is MovieDetailViewModel.UIState.Error -> FullScreenErrorLayout(
             msg = uiState.msg, onRetry = movieDetailViewModel::getMovieDetail
@@ -76,6 +69,7 @@ fun MovieDetailPreview() {
         relatedMovies = flow<PagingData<Movie>> { }.collectAsLazyPagingItems(),
         onMovieClick = {},
         onOpenUrl = {},
+        onPlayTrailer = {},
     )
 }
 
@@ -86,8 +80,9 @@ fun MovieDetailLayout(
     movie: Movie,
     onClose: () -> Unit,
     relatedMovies: LazyPagingItems<Movie>,
-    onMovieClick: (Movie) -> Unit,
-    onOpenUrl: (String) -> Unit
+    onMovieClick: (Int) -> Unit,
+    onOpenUrl: (String) -> Unit,
+    onPlayTrailer: (String) -> Unit
 ) {
 
     val scrollState = rememberScrollState()
@@ -109,11 +104,20 @@ fun MovieDetailLayout(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    ExtendedFloatingActionButton(onClick = { }, icon = {
-                        Icon(
-                            Icons.Filled.PlayArrow, contentDescription = ""
-                        )
-                    }, text = { Text("Play Trailer") })
+                    if (movie.trailer.isNotEmpty()) {
+                        IconButton(
+                            onClick = { onPlayTrailer(movie.trailer) },
+                            modifier = Modifier.border(
+                                BorderStroke(2.dp, Color.Black),
+                                shape = CircleShape
+                            )
+                        ) {
+                            Icon(
+                                Icons.Filled.PlayArrow, contentDescription = ""
+                            )
+                        }
+                    }
+
                     Spacer(modifier = Modifier.weight(weight = 1.0f))
                     Text(text = movie.runtime.minutesToReadable())
                     Spacer(modifier = Modifier.width(16.dp))
@@ -208,7 +212,7 @@ fun MovieDetailLayout(
                             MediaCard(
                                 mediaUrl = movie.posterPath,
                                 t = it,
-                                onMediaClicked = onMovieClick
+                                onMediaClicked = {onMovieClick.invoke(movie.id)}
                             )
                         }
                     }

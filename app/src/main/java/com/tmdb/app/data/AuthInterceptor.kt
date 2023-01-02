@@ -18,33 +18,53 @@ class AuthInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
         val context: Context = TMDBApp.instance.applicationContext
-        if (original.url.encodedPath == "/3/trending/movie/day") {
-            val getPeople: InputStream = context.assets.open("get_trending_movies.json")
-            val respStr = InputStreamReader(getPeople).readText()
-            return respStr.buildResponse(original)
-        }
-        if (original.url.encodedPath == "/3/person/popular") {
-            val getPeople: InputStream = context.assets.open("get_people.json")
-            val respStr = InputStreamReader(getPeople).readText()
-            return respStr.buildResponse(original)
-        } else if (original.url.encodedPath == "/3/person/976") {
-            val getPeopleDetail = context.assets.open("get_people_detail.json")
-            val respStr = InputStreamReader(getPeopleDetail).readText()
-            return respStr.buildResponse(original)
-        }
-        else if (original.url.encodedPath == "/3/movie/550") {
-            val getPeopleDetail = context.assets.open("get_movie_detail.json")
-            val respStr = InputStreamReader(getPeopleDetail).readText()
-            return respStr.buildResponse(original)
+        when (original.url.encodedPath) {
+           /* "/3/trending/movie/day" -> {
+                val getPeople: InputStream = context.assets.open("get_trending_movies.json")
+                val respStr = InputStreamReader(getPeople).readText()
+                return respStr.buildResponse(original)
+            }
+            "/3/person/popular" -> {
+                val getPeople: InputStream = context.assets.open("get_people.json")
+                val respStr = InputStreamReader(getPeople).readText()
+                return respStr.buildResponse(original)
+            }
+            "/3/trending/tv/day" -> {
+                val trendingTvs: InputStream = context.assets.open("get_trending_tvs.json")
+                val respStr = InputStreamReader(trendingTvs).readText()
+                return respStr.buildResponse(original)
+            }
+            "/3/person/976" -> {
+                val getPeopleDetail = context.assets.open("get_people_detail.json")
+                val respStr = InputStreamReader(getPeopleDetail).readText()
+                return respStr.buildResponse(original)
+            }
+            "/3/movie/550" -> {
+                val movieDetail = context.assets.open("get_movie_detail.json")
+                val respStr = InputStreamReader(movieDetail).readText()
+                return respStr.buildResponse(original)
+            }
+            "/3/tv/90669" -> {
+                val tvDetail = context.assets.open("get_tv_detail.json")
+                val respStr = InputStreamReader(tvDetail).readText()
+                return respStr.buildResponse(original)
+            }
+            "/3/tv/90669/season/1" -> {
+                val seasonDetail = context.assets.open("get_season_detail.json")
+                val respStr = InputStreamReader(seasonDetail).readText()
+                return respStr.buildResponse(original)
+            }*/
+            else -> {
+                val originalHttpUrl = original.url
+                val httpUrl = originalHttpUrl.newBuilder()
+                    .addQueryParameter("api_key", apiKey)
+                    .build()
+                val requestBuilder = original.newBuilder().url(httpUrl)
+                val request = requestBuilder.build()
+                return chain.proceed(request)
+            }
         }
 
-        val originalHttpUrl = original.url
-        val httpUrl = originalHttpUrl.newBuilder()
-            .addQueryParameter("api_key", apiKey)
-            .build()
-        val requestBuilder = original.newBuilder().url(httpUrl)
-        val request = requestBuilder.build()
-        return chain.proceed(request)
     }
 
     fun String.buildResponse(request: Request): Response {
@@ -64,3 +84,4 @@ class AuthInterceptor @Inject constructor() : Interceptor {
             .build()
     }
 }
+

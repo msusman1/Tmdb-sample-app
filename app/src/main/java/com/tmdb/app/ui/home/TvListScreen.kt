@@ -16,6 +16,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.tmdb.app.domain.entity.TV
+import com.tmdb.app.ui.navigateToTVDetail
 import timber.log.Timber
 
 @Composable
@@ -23,6 +24,7 @@ fun TvListScreen(tvViewModel: TvViewModel = hiltViewModel(), navController: NavC
 
     val trendingTvs: LazyPagingItems<TV> =
         tvViewModel.trendingTvs.collectAsLazyPagingItems()
+
     val popularTvs: LazyPagingItems<TV> =
         tvViewModel.popularTvs.collectAsLazyPagingItems()
     val airingTodayTvs: LazyPagingItems<TV> =
@@ -37,6 +39,7 @@ fun TvListScreen(tvViewModel: TvViewModel = hiltViewModel(), navController: NavC
     }
 
     fun onTvClicked(tv: TV) {
+        navController.navigateToTVDetail(tv.id)
         Timber.d("onTvClicked tv: ${tv.title}")
 
     }
@@ -111,7 +114,7 @@ private fun TvRowItems(
             items(tvs, key = { it.id }) { tv ->
                 tv?.let {
                     MediaCard(
-                        mediaUrl = tv.posterPath,
+                        mediaUrl = tv.poster,
                         t = it,
                         onMediaClicked = onTvClick
                     )

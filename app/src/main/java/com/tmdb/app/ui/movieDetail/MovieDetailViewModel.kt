@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.google.accompanist.pager.PagerState
 import com.tmdb.app.domain.entity.Movie
 import com.tmdb.app.domain.usecase.movie.GetMovieDetailUseCase
 import com.tmdb.app.domain.usecase.movie.GetRelatedMoviesUseCase
+import com.tmdb.app.ui.Screen.MovieDetail.parseMovieDetailArguments
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,13 +23,11 @@ class MovieDetailViewModel @Inject constructor(
 ) : ViewModel() {
     val uiState: Flow<UIState> get() = _uiState
     private val _uiState = MutableStateFlow<UIState>(UIState.Loading)
-    private val movieId: Int = checkNotNull(savedStateHandle["movieId"])
-
-    val uiStateRelatedMovies: Flow<UIState> get() = _uiStateRelatedMovies
-    private val _uiStateRelatedMovies = MutableStateFlow<UIState>(UIState.Loading)
+    private val movieId: Int = savedStateHandle.parseMovieDetailArguments().movieId
 
     val relatedMovies: Flow<PagingData<Movie>> =
         getRelatedMoviesUseCase.invoke(movieId).cachedIn(viewModelScope)
+
     init {
         getMovieDetail()
     }

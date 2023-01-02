@@ -1,0 +1,152 @@
+{
+  "adult": false,
+  "backdrop_path": "/s1xnjbOIQtwGObPnydTebp74G2c.jpg",
+  "created_by": [
+    {
+      "id": 232959,
+      "credit_id": "5d139c250e0a260f33ca70c6",
+      "name": "Baran bo Odar",
+      "gender": 2,
+      "profile_path": "/3CfxoYPDPgFZ6jJMBOXCO5zhhEQ.jpg"
+    },
+    {
+      "id": 1075096,
+      "credit_id": "5d139c36c3a36811ee2319ed",
+      "name": "Jantje Friese",
+      "gender": 1,
+      "profile_path": "/1FPWxHCzCmiLlmCAf7Gze6jkWP7.jpg"
+    }
+  ],
+  "episode_run_time": [
+    50
+  ],
+  "first_air_date": "2022-11-17",
+  "genres": [
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    }
+  ],
+  "homepage": "https://www.netflix.com/title/80214497",
+  "id": 90669,
+  "in_production": true,
+  "languages": [
+    "en",
+    "da",
+    "es",
+    "de",
+    "pt",
+    "fr",
+    "cn"
+  ],
+  "last_air_date": "2022-11-17",
+  "last_episode_to_air": {
+    "air_date": "2022-11-17",
+    "episode_number": 8,
+    "id": 3915217,
+    "name": "The Key",
+    "overview": "Maura tells the passengers an unbelievable truth. Then, their memories shift and Daniel changes a code. Maura faces an unexpected reality.",
+    "production_code": "",
+    "runtime": 51,
+    "season_number": 1,
+    "show_id": 90669,
+    "still_path": "/4gdW382UCMOjMKlfYi9XzCpHHZY.jpg",
+    "vote_average": 8.0,
+    "vote_count": 3
+  },
+  "name": "1899",
+  "next_episode_to_air": null,
+  "networks": [
+    {
+      "id": 213,
+      "name": "Netflix",
+      "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+      "origin_country": ""
+    }
+  ],
+  "number_of_episodes": 8,
+  "number_of_seasons": 1,
+  "origin_country": [
+    "DE"
+  ],
+  "original_language": "en",
+  "original_name": "1899",
+  "overview": "Passengers on an immigrant ship traveling to the new continent get caught in a mysterious riddle when they find a second vessel adrift on the open sea.",
+  "popularity": 841.289,
+  "poster_path": "/2QK8tIXafyiz93PvAbKxxfK2BLb.jpg",
+  "production_companies": [
+    {
+      "id": 181300,
+      "logo_path": "/s2z9ZF2WxpPe29MRSi7mCWGVvI6.png",
+      "name": "Dark Ways",
+      "origin_country": "DE"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "DE",
+      "name": "Germany"
+    },
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "seasons": [
+    {
+      "air_date": "2022-11-17",
+      "episode_count": 8,
+      "id": 126785,
+      "name": "Season 1",
+      "overview": "",
+      "poster_path": "/csDPKzcTH6IaRekE1YVmbLUa23f.jpg",
+      "season_number": 1
+    }
+  ],
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    },
+    {
+      "english_name": "Danish",
+      "iso_639_1": "da",
+      "name": "Dansk"
+    },
+    {
+      "english_name": "Spanish",
+      "iso_639_1": "es",
+      "name": "Español"
+    },
+    {
+      "english_name": "German",
+      "iso_639_1": "de",
+      "name": "Deutsch"
+    },
+    {
+      "english_name": "Portuguese",
+      "iso_639_1": "pt",
+      "name": "Português"
+    },
+    {
+      "english_name": "French",
+      "iso_639_1": "fr",
+      "name": "Français"
+    },
+    {
+      "english_name": "Cantonese",
+      "iso_639_1": "cn",
+      "name": "广州话 / 廣州話"
+    }
+  ],
+  "status": "Returning Series",
+  "tagline": "What is lost will be found.",
+  "type": "Scripted",
+  "vote_average": 7.913,
+  "vote_count": 149
+}
